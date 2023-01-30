@@ -77,7 +77,7 @@ function buildToDo(todo, index) {
 function buildToDos(toDos) {
   // Tu código acá:
 
-  let toDoItems = toDos.map(buildToDo());
+  let toDoItems = toDos.map((todo) => buildToDo(todo));
 
   return toDoItems;
 }
@@ -114,6 +114,16 @@ function displayToDos() {
 
 function addToDo() {
   // Tu código acá:
+
+  let newToDo = new ToDo();
+
+  toDoInput.value = newToDo;
+
+  toDoItems.push(newToDo);
+
+  toDoInput.value.innerHTML = "";
+
+  displayToDos();
 }
 
 // Agregar un 'Event Listener' para que cada vez que el botón 'AGREGAR' sea clickeado
@@ -122,6 +132,10 @@ function addToDo() {
 //   2) Agregarle un 'click' event listener, pasándole la función 'addToDo' como callback
 
 // Tu código acá:
+
+let boton = document.getElementById("addButton");
+
+  boton.addEventListener("click", addToDo())
 
 // La función completeToDo se va a ejecutar cuando queramos completar un todo
 // [NOTA: Algunas cuestiones a tener en cuenta
@@ -137,7 +151,7 @@ function addToDo() {
 
 function completeToDo(event) {
   // DESCOMENTAR LA SIGUIENTE LINEA
-  //const index = event.target.id;
+  const index = event.target.id;
   // Tu código acá:
 }
 
