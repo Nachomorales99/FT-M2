@@ -67,16 +67,17 @@ function buildToDo(todo, index) {
 
   let checkbox = document.createElement("input");
   checkbox.type = "checkbox";
-  checkbox.id = index; 
+  checkbox.id = index;
   checkbox.addEventListener("click", completeToDo);
   checkbox.classList.add("completeCheckbox");
+
 
   // toDotext.setAttribute(index, index); OTRA FORMA DE HACERLO
 
   if (todo.complete) checkbox.checked = true;
-  if(checkbox.checked) toDotext.setAttribute("style", "color: green")
-  toDoShell.appendChild(checkbox); 
-  toDoShell.appendChild(toDotext); 
+  if (checkbox.checked) toDotext.setAttribute("style", "color: green")
+  toDoShell.appendChild(toDotext);
+  toDoShell.appendChild(checkbox);
 
   return toDoShell;
 }
@@ -134,13 +135,37 @@ function addToDo() {
 
   let toDoInput = document.querySelector("#toDoInput");
 
-  let newToDo = new ToDo(toDoInput.value);
+  if (toDoInput.value.trim() === "") {
+    return;
+  } else {
+    let newToDo = new ToDo(toDoInput.value);
 
-  toDoItems.push(newToDo);
+    toDoItems.push(newToDo);
 
-  toDoInput.value = "";
+    toDoInput.value = "";
+  }
 
   displayToDos();
+}
+
+function removeToDo() {
+  let inputText = document.getElementById("toDoInput");
+
+  if (inputText.value) {
+    toDoItems = removeToDoInArray(toDoItems, inputText.value);
+    inputText.value = "";
+    displayToDos();
+  }
+}
+
+function removeToDoInArray(array, value) {
+  let index = array.map(x => x.description).indexOf(value);
+
+  if (index > -1) {
+    array.splice(index, 1)
+  }
+
+  return array;
 }
 
 // Agregar un 'Event Listener' para que cada vez que el botón 'AGREGAR' sea clickeado
@@ -151,8 +176,11 @@ function addToDo() {
 // Tu código acá:
 
 let boton = document.getElementById("addButton");
+boton.addEventListener("click", addToDo);  
 
-boton.addEventListener("click", addToDo)
+let borrar = document.getElementById("delButton");
+borrar.addEventListener("click", removeToDo); 
+
 
 // La función completeToDo se va a ejecutar cuando queramos completar un todo
 // [NOTA: Algunas cuestiones a tener en cuenta
@@ -186,7 +214,7 @@ function completeToDo(event) {
         d) Asignarle la clase 'completeCheckbox' al checkbox
         e) Dentro del bloque 'if' de la función buildToDo, si es true, setear el atributo 'checked' en true en el checkbox
         f) Agregar el checkbox sobre el elemento 'toDoShell' 
-*/  
+*/
 // ********************************************** ----------- ********************************************** //
 
 // Acá debes insertar la llamada a 'displayToDos'
