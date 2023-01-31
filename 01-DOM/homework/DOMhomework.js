@@ -8,7 +8,7 @@ let toDoItems = [];
 // agregar tu nombre al final del texto actual. Ej: 'Aplicación creada por Franco'
 // Tu código acá:
 
-let created = document.getElementById("createdBy");
+let created = document.querySelector("#createdBy");
 created.innerHTML = `${created.innerHTML} Nacho Morales`;
 
 // Crear una clase denominada 'ToDo' cuyo constructor debe recibir un único parámetro del tipo string
@@ -58,13 +58,25 @@ function buildToDo(todo, index) {
   let toDoShell = document.createElement("div");
   toDoShell.classList.add("toDoShell");
 
+  // toDoShell.className = "toDoShell"; OTRA FORMA DE HACERLO
+
   let toDotext = document.createElement("span");
   toDotext.innerHTML = todo.description;
-  toDotext.setAttribute(index, index);
+  // toDotext.id = index;
+  // toDotext.addEventListener("click", completeToDo);
 
-  if (todo.complete === true) toDotext.classList.add("completeText");
+  let checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.id = index; 
+  checkbox.addEventListener("click", completeToDo);
+  checkbox.classList.add("completeCheckbox");
 
-  toDoShell.appendChild(toDotext);
+  // toDotext.setAttribute(index, index); OTRA FORMA DE HACERLO
+
+  if (todo.complete) checkbox.checked = true;
+  if(checkbox.checked) toDotext.setAttribute("style", "color: green")
+  toDoShell.appendChild(checkbox); 
+  toDoShell.appendChild(toDotext); 
 
   return toDoShell;
 }
@@ -77,9 +89,9 @@ function buildToDo(todo, index) {
 function buildToDos(toDos) {
   // Tu código acá:
 
-  let toDoItems = toDos.map((todo) => buildToDo(todo));
+  let newArray = toDos.map(buildToDo);
 
-  return toDoItems;
+  return newArray;
 }
 
 // La función 'displayToDos' se va a encargar de que se vean los toDo's en pantalla
@@ -100,7 +112,12 @@ function displayToDos() {
 
   let result = buildToDos(toDoItems);
 
-  result.forEach((e) => toDoContainer.appendChild(e));
+  /* for (let toDoShell of result){
+      toDoContainer.appendChild(toDoShell);
+    }
+  OTRA FORMA DE HACERLO */
+
+  result.forEach((e) => toDoContainer.appendChild(e)); //SE CREAN CONTEXTOS DE EJECUCION POR VUELTA
 }
 
 // La función 'addToDo' agregará un nuevo ToDo al array 'toDoItems'
@@ -115,13 +132,13 @@ function displayToDos() {
 function addToDo() {
   // Tu código acá:
 
-  let newToDo = new ToDo();
+  let toDoInput = document.querySelector("#toDoInput");
 
-  toDoInput.value = newToDo;
+  let newToDo = new ToDo(toDoInput.value);
 
   toDoItems.push(newToDo);
 
-  toDoInput.value.innerHTML = "";
+  toDoInput.value = "";
 
   displayToDos();
 }
@@ -135,7 +152,7 @@ function addToDo() {
 
 let boton = document.getElementById("addButton");
 
-  boton.addEventListener("click", addToDo())
+boton.addEventListener("click", addToDo)
 
 // La función completeToDo se va a ejecutar cuando queramos completar un todo
 // [NOTA: Algunas cuestiones a tener en cuenta
@@ -153,6 +170,9 @@ function completeToDo(event) {
   // DESCOMENTAR LA SIGUIENTE LINEA
   const index = event.target.id;
   // Tu código acá:
+
+  toDoItems[index].completeToDo();
+  displayToDos();
 }
 
 // Una vez que llegaste a este punto verificá que todos los tests pasen
@@ -165,8 +185,8 @@ function completeToDo(event) {
         c) Agregarle al checkbox el 'click' event listener de completeToDo y quitárle el event listener a toDoText
         d) Asignarle la clase 'completeCheckbox' al checkbox
         e) Dentro del bloque 'if' de la función buildToDo, si es true, setear el atributo 'checked' en true en el checkbox
-        f) Agregar el checkbox sobre el elemento 'toDoShell'
-*/
+        f) Agregar el checkbox sobre el elemento 'toDoShell' 
+*/  
 // ********************************************** ----------- ********************************************** //
 
 // Acá debes insertar la llamada a 'displayToDos'
