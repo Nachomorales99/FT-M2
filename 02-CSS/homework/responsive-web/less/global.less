@@ -1,5 +1,7 @@
 // Estilo General
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -16,17 +18,23 @@ h1, h2, h3, h4, h5 {
   font-family: 'Russo One', sans-serif;
   color: @header-font-color;
 }
+h1{
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+  .title(3.6rem);
+}
 
 h2 {
-  font-size: 3.2rem;
+  .title(3.2rem);
 }
 
 h3 {
-  font-size: 2.8rem;
+  .title(2.8rem);
 }
 
 p {
-  font-size: 1.6rem;
+  .title(1.6rem);
   line-height: 1.4;
 }
 

@@ -1,0 +1,5 @@
+- Un Framework es una repositorio donde encontraremos un monton de componentes ya diseñados para el uso de paginas web que nos facilitaran elegir el diseño de las mismas, a su vez estos puede ser modificados para ser adaptados a nuestros proyectos, pero ya nos ahorran mucho tiempo en cuando a estructuras se trata. 
+
+- Un Preprocesador de CSS es un programa que no ayuda a escribir los estilos de nuestra pagina de una forma mas prolija y organizda, la cual luego es traducida en codigo CSS, lo cual no faicilita realizar cambio de manera mas rapida. Ademas de añadir elementos que hacen mas dinamico el tipeo de estilos y si visualizacion. 
+
+- Un Responsive website es un sitio web que esta diseñado para adaptarse a todo tipo de patallas , ya sean Pc, Tablets, Desktop o monitores mucho mas grandes. Es importante el uso de Media Queries para realizar esra adaptacion.

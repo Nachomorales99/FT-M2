@@ -1,1 +1,24 @@
 // Código de Nav acá
+.header {
+    background-color: @wild-sand;
+    color: @river-bend;
+    border: 1px solid @sea-shell;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    margin-bottom: 0.5rem;
+    padding: 0.8rem; 
+
+    @media(max-width: @mobile){
+        
+    }
+
+    li {
+        display: inline-block;
+        font-size: 1.5rem;  
+        color: rgba(0, 0, 0, 0.726);
+        font-weight: 600; 
+        margin: 10px;
+    }
+}
