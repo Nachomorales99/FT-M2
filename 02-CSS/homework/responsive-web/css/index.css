@@ -1,3 +1,17 @@
+@keyframes fade-left {
+  0% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(-10px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -169,6 +183,7 @@ p {
   margin: 0 auto;
 }
 .header {
+  width: 100%;
   background-color: #F6F6F6;
   color: #454A59;
   border: 1px solid #F1F1F1;
@@ -179,12 +194,22 @@ p {
   margin-bottom: 0.5rem;
   padding: 0.8rem;
 }
+.header h1 {
+  animation-name: fade-left;
+  animation-iteration-count: 1;
+  animation-timing-function: ease;
+  animation-duration: 1.5s;
+  animation-delay: 0;
+}
 .header li {
   display: inline-block;
   font-size: 1.5rem;
-  color: rgba(0, 0, 0, 0.726);
   font-weight: 600;
   margin: 10px;
+}
+.header li a {
+  text-decoration: none;
+  color: #454A59;
 }
 footer {
   color: #22283B;
@@ -195,6 +220,11 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+@media (max-width: 500px) {
+  footer {
+    width: 100%;
+  }
 }
 .home .imgMain {
   width: 100%;
