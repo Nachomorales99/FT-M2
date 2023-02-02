@@ -1,14 +1,21 @@
-var traverseDomAndCollectElements = function (matchFunc, startEl) {
+var traverseDomAndCollectElements = function (
+  matchFunc,
+  startEl = document.body
+) {
   var resultSet = [];
-
-  if (typeof startEl === "undefined") {
-    startEl = document.body;
-  }
 
   // recorre el árbol del DOM y recolecta elementos que matchien en resultSet
   // usa matchFunc para identificar elementos que matchien
 
   // TU CÓDIGO AQUÍ
+
+  if (matchFunc(startEl) === true) resultSet.push(startEl);
+
+  for (let i = 0; i < startEl.children.length; i++) {
+    let result = traverseDomAndCollectElements(matchFunc, startEl.children[i]);
+    resultSet = [...resultSet, ...result];
+  }
+  return resultSet;
 };
 
 // Detecta y devuelve el tipo de selector
@@ -21,8 +28,10 @@ var selectorTypeMatcher = function (selector) {
   if (selector[0] === ".") return "class";
 
   for (let i = 0; i < selector.length; i++) {
-    if (selector[i] === ".") return "tag.class";
+    if (selector[i] === ".") return "tag.class"; // Version Nacho
   }
+
+  // if(selector.includes(".")) return "tag.class"; // CR
 
   return "tag";
 };
@@ -38,15 +47,15 @@ var matchFunctionMaker = function (selector) {
 
   switch (selectorType) {
     case "id":
-      matchFunction = (el) => { 
-        selector = selector.slice(1, selector.length);
+      matchFunction = (el) => {
+        if(selector[0] === "#") selector = selector.slice(1, selector.length);
         return selector === el.id;
       };
       break;
 
     case "class":
       matchFunction = (el) => {
-        selector = selector.slice(1, selector.length);
+        if(selector[0] === ".") selector = selector.slice(1, selector.length);
         for (let clase of el.classList) {
           if (selector === clase) return true;
         }
@@ -55,7 +64,8 @@ var matchFunctionMaker = function (selector) {
       break;
 
     case "tag":
-      matchFunction = (el) => selector === el.tagName.toLowerCase();
+      matchFunction = (el) =>
+        selector.toLowerCase() === el.tagName.toLowerCase();
       break;
 
     default:
