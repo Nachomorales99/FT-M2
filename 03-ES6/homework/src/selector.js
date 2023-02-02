@@ -48,14 +48,14 @@ var matchFunctionMaker = function (selector) {
   switch (selectorType) {
     case "id":
       matchFunction = (el) => {
-        if(selector[0] === "#") selector = selector.slice(1, selector.length);
+        if(selector[0] === "#") selector = selector.slice(1);
         return selector === el.id;
       };
       break;
 
     case "class":
       matchFunction = (el) => {
-        if(selector[0] === ".") selector = selector.slice(1, selector.length);
+        if(selector[0] === ".") selector = selector.slice(1);
         for (let clase of el.classList) {
           if (selector === clase) return true;
         }
@@ -92,4 +92,4 @@ var $ = function (selector) {
   var selectorMatchFunc = matchFunctionMaker(selector);
   elements = traverseDomAndCollectElements(selectorMatchFunc);
   return elements;
-};
+}; 
