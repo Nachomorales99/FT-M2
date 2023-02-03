@@ -1,54 +1,60 @@
-// Motramos la lista de amigos
-let index = 1;
-let listo = null
+// Mostrar amigo
 
-$("#boton").click(function () {
-    console.log("Funciono");
-    
-    if (!listo)
-    $.get(`http://localhost:5000/amigos/`, function (data) {
-        console.log(data);
-        
-        for (let i = 0; i < data.length; i++) {
-        let amigo = document.createElement("li");
-        amigo.textContent = data[i].name;
-        amigo.id = index;
+let [boton] = $("#boton");
+let [lista] = $("#lista");
 
-        $("#lista").append(amigo);
-        index++;
-    }
-    
-    let nuevoGif = document.getElementById("gif");
-    nuevoGif.src = "https://media.tenor.com/GZbnUpTy_oUAAAAC/friends.gif";
-    $("#gif").append(nuevoGif);
+let [search] = $("#search");
 
-    listo = 1;
-    });
+let [deleteBtn] = $("#delete");
+
+let listaAmigos = (response) => {
+    lista.innerHTML = "";
+    response.forEach((amigo) => {
+    let newLi = document.createElement("li");
+    newLi.innerText = `${amigo.id} - ${amigo.name}`;
+    lista.appendChild(newLi);
 });
 
+let nuevoGif = document.getElementById("gif");
+nuevoGif.src = "https://media.tenor.com/GZbnUpTy_oUAAAAC/friends.gif";
+$("#gif").append(nuevoGif);
+};
+
+let mostarAmigos = () => {
+    $.get(`http://localhost:5000/amigos/`, listaAmigos);
+};
 // Buscar amigo
-$("#search").click(function () {
-    console.log("Busco");
-    
-    let idAmigo = document.getElementById("input").value;
 
-    $.get(`http://localhost:5000/amigos/${idAmigo}`, function (data) { 
+let buscarAmigo = () => {
+    let [input] = $("#input");
+    let id = input.value;
+    input.value = "";
 
-    let nombreAmigo = document.getElementById("amigo")
-
-    nombreAmigo.innerText = `${data.name}`
+    $.get(`http://localhost:5000/amigos/${id}`, (response) => {
+        let [amigo] = $("#amigo");
+        amigo.innerText = response.name;
     })
+}
+// Eliminar amigo
 
-}); 
+let deleteAmigo = () => {
+    let [inputDelete] = $("#inputDelete");
+    let id = inputDelete.value;
 
-// Eliminar amigo 
-$("#delete").click (function (){
-    console.log("Borro")
+    $.ajax({
+        type: "DELETE",
+        url: `http://localhost:5000/amigos/${id}`,
+        success: (response) => {
+        mostarAmigos(response)
 
-    let idAmigo = document.getElementById("inputDelete").value;
+        inputDelete.value = "";
 
-    $(`#${idAmigo}`).remove(); 
+        let nombreAmigo = document.getElementById("success");
+        nombreAmigo.innerText = "Tu amigo fue elimado con exito";
+    },
+    });
+}
 
-    let nombreAmigo = document.getElementById("success")
-    nombreAmigo.innerText = "Tu amigo fue elimado con exito"
-    }); 
+boton.addEventListener("click", mostarAmigos);
+search.addEventListener("click", buscarAmigo);
+deleteBtn.addEventListener("click", deleteAmigo);
