@@ -6,8 +6,8 @@ const Cards = (props) => {
 
 	return (
 		<>
-			{characters.map((character, index) => {
-				return (
+			{characters ? (
+				characters.map((character, index) => (
 					<div>
 						<Card
 							key={index}
@@ -18,8 +18,10 @@ const Cards = (props) => {
 							onClose={() => window.alert('Emulamos que se cierra la card')}
 						/>
 					</div>
-				);
-			})}
+				))
+			) : (
+				<h3>No hay persoanjes</h3>
+			)}
 		</>
 	);
 };
