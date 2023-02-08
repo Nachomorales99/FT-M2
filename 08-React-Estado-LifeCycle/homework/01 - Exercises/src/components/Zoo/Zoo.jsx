@@ -41,7 +41,9 @@ const Zoo = () => {
 		});
 	};
 
-	let handleAllSpecies = () => {};
+	let handleAllSpecies = () => {
+		setZoo({ ...zoo, animals: zoo.allAnimals });
+	};
 
 	return (
 		<div>
