@@ -5,15 +5,13 @@ class Animals extends React.Component {
 	// 	super(props);
 	// }
 	render() {
-		let width = {
-			width: '300px',
-		};
+		let { animals } = this.props;
 		return (
 			<div>
-				{this.props.animals.map((animal, index) => (
+				{animals.map((animal, index) => (
 					<div key={index}>
 						<h5>{animal.name}</h5>
-						<img src={animal.image} alt={animal.name} style={width} />
+						<img src={animal.image} alt={animal.name} width="300px" />
 						<p>{animal.specie}</p>
 					</div>
 				))}
