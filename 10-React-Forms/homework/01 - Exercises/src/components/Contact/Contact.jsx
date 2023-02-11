@@ -41,8 +41,7 @@ const Contact = () => {
 	let handleSubmit = (event) => {
 		event.preventDefault();
 
-		if (!Object.keys(errors).length) {
-			alert('Datos completos');
+		if (Object.keys(errors).length === 0) {
 			setErrors({
 				name: '',
 				email: '',
@@ -53,6 +52,7 @@ const Contact = () => {
 				email: '',
 				message: '',
 			});
+			alert('Datos completos');
 		} else {
 			alert('Debe llenar todos los campos');
 		}
@@ -60,7 +60,7 @@ const Contact = () => {
 
 	return (
 		<>
-			<form action="">
+			<form action="" onSubmit={handleSubmit}>
 				<label htmlFor="name">Nombre:</label>
 				<input
 					type="text"
@@ -95,9 +95,7 @@ const Contact = () => {
 					className={errors.message && 'warning'}
 				/>
 				{errors.message && <p className="danger">{errors.name}</p>}
-				<button onSubmit={handleSubmit} type="submit">
-					Enviar
-				</button>
+				<button type="submit">Enviar</button>
 			</form>
 		</>
 	);
