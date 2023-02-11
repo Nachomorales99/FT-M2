@@ -81,7 +81,7 @@ const Contact = () => {
 					onChange={handleChange}
 					className={errors.email && 'warning'}
 				/>
-				{errors.email && <p className="danger">{errors.name}</p>}
+				{errors.email && <p className="danger">{errors.email}</p>}
 
 				<label htmlFor="message">Mensaje:</label>
 				<textarea
@@ -94,7 +94,7 @@ const Contact = () => {
 					onChange={handleChange}
 					className={errors.message && 'warning'}
 				/>
-				{errors.message && <p className="danger">{errors.name}</p>}
+				{errors.message && <p className="danger">{errors.message}</p>}
 				<button type="submit">Enviar</button>
 			</form>
 		</>
