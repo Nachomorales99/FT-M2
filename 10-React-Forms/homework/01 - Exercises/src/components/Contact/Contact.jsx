@@ -7,7 +7,11 @@ const regexEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 export let validate = ({ name, email, message }) => {
 	let errors = {};
 	//Validamos Name
-	if (!name) errors.name = 'Se requiere un nombre';
+	if (!name) {
+		errors.name = 'Se requiere un nombre';
+	} else if (name.length < 3) {
+		errors.name = 'Debe ser mayor a 3 caracteres';
+	}
 
 	//Validamos email
 	if (!regexEmail.test(email)) errors.email = 'Debe ser un correo electrónico';
@@ -95,7 +99,12 @@ const Contact = () => {
 					className={errors.message && 'warning'}
 				/>
 				{errors.message && <p className="danger">{errors.message}</p>}
-				<button type="submit">Enviar</button>
+				<button
+					type="submit"
+					// disable={Object.keys(errors).length === 0 ? false : true}
+				>
+					Enviar
+				</button>
 			</form>
 		</>
 	);
