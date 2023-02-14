@@ -5,6 +5,7 @@ const { INCREMENTO, DECREMENTO } = require('../action-types');
 // de manejar ninguna de las lógicas actuales de actualización del store central de Redux.
 // Eso se lo deja al reducer(s).
 
+//Action Creator
 const incremento = () => {
 	return { type: INCREMENTO };
 };
