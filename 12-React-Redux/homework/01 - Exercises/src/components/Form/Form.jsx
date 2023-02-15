@@ -57,4 +57,6 @@ export function mapDispatchToProps(dispatch) {
 	};
 }
 
+// export default connect(null, { addProduct })(Form);
+
 export default connect(null, mapDispatchToProps)(Form);
